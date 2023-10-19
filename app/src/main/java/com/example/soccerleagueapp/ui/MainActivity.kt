@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            val gamesList by remember { mutableStateOf(listOf<GameModel>()) }
+            var gamesList by remember { mutableStateOf(listOf<GameModel>()) }
             var teamsList by remember { mutableStateOf(listOf<TeamPreviewModel>()) }
             var teamDetails by remember {
                 mutableStateOf(
@@ -43,6 +43,9 @@ class MainActivity : ComponentActivity() {
 
             LaunchedEffect(true) {
                 viewModel.getGames()
+                viewModel.gamesList.observe(this@MainActivity) { games ->
+                    gamesList = games
+                }
                 viewModel.teamsList.observe(this@MainActivity) { teams ->
                     teamsList = teams
                 }
@@ -53,7 +56,7 @@ class MainActivity : ComponentActivity() {
 
             NavHost(navController = navController, startDestination = gameTableScreenKey) {
                 composable(gameTableScreenKey) {
-                    GameTable(itemViewStates = )
+                    GameTable(itemViewStates = gamesList)
                 }
                 composable(teamsListScreenKey) {
                     TeamsList(

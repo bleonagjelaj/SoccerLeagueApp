@@ -19,7 +19,7 @@ import com.example.soccerleagueapp.ui.theme.SoccerLeagueAppTheme
 
 @Composable
 fun GameTable(
-    itemViewStates: List<GameModel>, onItemClicked: (Int) -> Unit = {}
+    itemViewStates: List<GameModel>
 ) {
     val gradientColors = listOf(
         Color(0xFFB1C1C1), Color(0xFF4DFFFF), Color(0xFF00088E)
@@ -38,7 +38,7 @@ fun GameTable(
         )
         LazyColumn(modifier = Modifier.padding(top = 20.dp)) {
             items(itemViewStates) { data ->
-                GameListItem(itemViewState = data, onItemClicked = onItemClicked)
+                GameListItem(itemViewState = data)
                 Divider(color = Color.Gray, thickness = 2.dp)
             }
         }

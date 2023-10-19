@@ -6,10 +6,12 @@ import com.example.soccerleagueapp.domain.models.TeamModel
 import com.example.soccerleagueapp.domain.models.TeamPreviewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlin.random.Random
 
 class TeamsRepository {
 
     val teams = mutableListOf<TeamModel>()
+    val games = mutableListOf<GameModel>()
 
     init {
         generateTeams()
@@ -29,11 +31,13 @@ class TeamsRepository {
                 val homeTeam = teams[match]
                 val awayTeam = teams[teams.size - 1 - match]
 
-                // Create a fixture pair for this match (home and away)
-                //val fixture = GameModel(homeTeam, cities[i % cities.size] awayTeam)
+                // Create a game pair for this match (home and away)
+                val fixture = GameModel(
+                    Pair(homeTeam.teamName, awayTeam.teamName),
+                    Pair(Random.nextInt(0, 6), Random.nextInt(0,6)))
 
-                // Store the fixture pair
-                fixtures.add(fixture)
+                // Store the game pair
+                games.add(fixture)
             }
 
             // Rotate the teams for the next round
@@ -105,5 +109,8 @@ class TeamsRepository {
         }
     }
 
-    fun getGames(): Flow<List<GameModel>> = flow { emit(generateGames()) }
+    fun getGames(): Flow<List<GameModel>> = flow {
+        generateGames()
+        emit(games)
+    }
 }

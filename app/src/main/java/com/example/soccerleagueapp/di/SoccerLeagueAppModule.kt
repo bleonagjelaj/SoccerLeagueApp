@@ -1,6 +1,7 @@
 package com.example.soccerleagueapp.di
 
 import com.example.soccerleagueapp.domain.repositories.TeamsRepository
+import com.example.soccerleagueapp.domain.useCases.GetGamesListUseCase
 import com.example.soccerleagueapp.domain.useCases.GetTeamDetailsUseCase
 import com.example.soccerleagueapp.domain.useCases.GetTeamsListUseCase
 import dagger.Module
@@ -29,5 +30,11 @@ object SoccerLeagueAppModule {
     @Singleton
     fun provideGetTeamDetailsUseCase(teamsRepository: TeamsRepository): GetTeamDetailsUseCase {
         return GetTeamDetailsUseCase(teamsRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetGamesListUseCase(teamsRepository: TeamsRepository): GetGamesListUseCase {
+        return GetGamesListUseCase(teamsRepository)
     }
 }

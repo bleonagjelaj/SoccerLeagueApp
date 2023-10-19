@@ -1,11 +1,10 @@
 package com.example.soccerleagueapp.ui.viewModels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.soccerleagueapp.domain.models.GameModel
 import com.example.soccerleagueapp.domain.models.TeamDetailsModel
-import com.example.soccerleagueapp.domain.models.TeamModel
 import com.example.soccerleagueapp.domain.models.TeamPreviewModel
 import com.example.soccerleagueapp.domain.useCases.GetGamesListUseCase
 import com.example.soccerleagueapp.domain.useCases.GetTeamDetailsUseCase
@@ -21,6 +20,9 @@ class TeamsViewModel @Inject constructor(
     private val getTeamDetailsUseCase: GetTeamDetailsUseCase
 ) : ViewModel() {
 
+    private val _gamesList = MutableLiveData<List<GameModel>>()
+    val gamesList = _gamesList
+
     private val _teamsList = MutableLiveData<List<TeamPreviewModel>>()
     val teamsList = _teamsList
 
@@ -31,10 +33,11 @@ class TeamsViewModel @Inject constructor(
     fun getGames() {
         viewModelScope.launch {
             getGamesListUseCase().collect{ gamesListResponse ->
-
+                _gamesList.value = gamesListResponse
             }
         }
     }
+
     fun getTeams() {
         viewModelScope.launch {
             getTeamsListUseCase().collect { teamsListResponse ->
