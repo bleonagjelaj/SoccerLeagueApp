@@ -15,6 +15,7 @@ class TeamsRepository {
 
     init {
         generateTeams()
+        generateGames()
     }
 
     private fun generateGames() {
@@ -31,10 +32,18 @@ class TeamsRepository {
                 val homeTeam = teams[match]
                 val awayTeam = teams[teams.size - 1 - match]
 
+                //add team scores
+                val homeTeamScore = Random.nextInt(0, 6)
+                val awayTeamScore = Random.nextInt(0, 6)
+
+                teams[match].apply { teamScore = teamScore.plus(homeTeamScore) }
+                teams[teams.size - 1 - match].apply { teamScore = teamScore.plus(awayTeamScore) }
+
                 // Create a game pair for this match (home and away)
                 val fixture = GameModel(
                     Pair(homeTeam.teamName, awayTeam.teamName),
-                    Pair(Random.nextInt(0, 6), Random.nextInt(0,6)))
+                    Pair(homeTeamScore, awayTeamScore)
+                )
 
                 // Store the game pair
                 games.add(fixture)
@@ -91,7 +100,7 @@ class TeamsRepository {
                 )
             )
         }
-        emit(teamsToPreview)
+        emit(teamsToPreview.sortedByDescending { it.teamScore })
     }
 
     fun getTeamDetails(teamId: Int): Flow<TeamDetailsModel> {
@@ -110,7 +119,7 @@ class TeamsRepository {
     }
 
     fun getGames(): Flow<List<GameModel>> = flow {
-        generateGames()
+        //generateGames()
         emit(games)
     }
 }

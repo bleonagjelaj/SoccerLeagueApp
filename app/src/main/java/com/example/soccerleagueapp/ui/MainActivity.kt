@@ -42,9 +42,10 @@ class MainActivity : ComponentActivity() {
             }
 
             LaunchedEffect(true) {
-                viewModel.getGames()
+                viewModel.getTeams()
                 viewModel.gamesList.observe(this@MainActivity) { games ->
                     gamesList = games
+                    viewModel.getTeams()
                 }
                 viewModel.teamsList.observe(this@MainActivity) { teams ->
                     teamsList = teams
@@ -54,7 +55,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
 
-            NavHost(navController = navController, startDestination = gameTableScreenKey) {
+            NavHost(navController = navController, startDestination = teamsListScreenKey) {
                 composable(gameTableScreenKey) {
                     GameTable(itemViewStates = gamesList)
                 }

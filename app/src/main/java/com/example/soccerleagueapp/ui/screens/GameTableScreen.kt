@@ -31,7 +31,7 @@ fun GameTable(
             .padding(10.dp)
     ) {
         Text(
-            text = "Soccer League Teams",
+            text = "Soccer League Games",
             textAlign = TextAlign.Center,
             fontSize = 30.sp,
             modifier = Modifier.fillMaxWidth()

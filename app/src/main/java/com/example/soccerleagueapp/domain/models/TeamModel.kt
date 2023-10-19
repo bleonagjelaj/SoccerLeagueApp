@@ -5,5 +5,5 @@ data class TeamModel(
     val teamName: String,
     val cityName: String,
     val coachName: String,
-    val teamScore: Int
+    var teamScore: Int
 )
