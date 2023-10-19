@@ -40,13 +40,13 @@ class TeamsRepository {
                 teams[teams.size - 1 - match].apply { teamScore = teamScore.plus(awayTeamScore) }
 
                 // Create a game pair for this match (home and away)
-                val fixture = GameModel(
+                val game = GameModel(
                     Pair(homeTeam.teamName, awayTeam.teamName),
                     Pair(homeTeamScore, awayTeamScore)
                 )
 
                 // Store the game pair
-                games.add(fixture)
+                games.add(game)
             }
 
             // Rotate the teams for the next round
@@ -119,7 +119,6 @@ class TeamsRepository {
     }
 
     fun getGames(): Flow<List<GameModel>> = flow {
-        //generateGames()
         emit(games)
     }
 }

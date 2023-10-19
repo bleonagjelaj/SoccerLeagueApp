@@ -2,7 +2,6 @@ package com.example.soccerleagueapp.domain
 
 import com.example.soccerleagueapp.domain.models.GameModel
 import com.example.soccerleagueapp.domain.models.TeamDetailsModel
-import com.example.soccerleagueapp.domain.models.TeamModel
 import com.example.soccerleagueapp.domain.models.TeamPreviewModel
 import kotlinx.coroutines.flow.Flow
 

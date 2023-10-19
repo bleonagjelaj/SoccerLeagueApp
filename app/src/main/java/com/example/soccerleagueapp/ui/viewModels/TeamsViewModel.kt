@@ -32,7 +32,7 @@ class TeamsViewModel @Inject constructor(
 
     fun getGames() {
         viewModelScope.launch {
-            getGamesListUseCase().collect{ gamesListResponse ->
+            getGamesListUseCase().collect { gamesListResponse ->
                 _gamesList.value = gamesListResponse
             }
         }

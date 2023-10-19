@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class GetGamesListUseCase @Inject constructor(
     private val teamsRepository: TeamsRepository
-): UseCases.GetGamesList {
+) : UseCases.GetGamesList {
     override suspend operator fun invoke(): Flow<List<GameModel>> {
         return teamsRepository.getGames()
     }
