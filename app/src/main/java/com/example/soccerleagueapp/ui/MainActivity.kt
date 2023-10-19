@@ -13,7 +13,7 @@ import com.example.soccerleagueapp.domain.models.TeamDetailsModel
 import com.example.soccerleagueapp.domain.models.TeamPreviewModel
 import com.example.soccerleagueapp.ui.screens.GameTable
 import com.example.soccerleagueapp.ui.screens.TeamDetails
-import com.example.soccerleagueapp.ui.screens.TeamsList
+import com.example.soccerleagueapp.ui.screens.Teams
 import com.example.soccerleagueapp.ui.viewModels.TeamsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,12 +60,17 @@ class MainActivity : ComponentActivity() {
                     GameTable(itemViewStates = gamesList)
                 }
                 composable(teamsListScreenKey) {
-                    TeamsList(
+                    Teams(
                         itemViewStates = teamsList,
                         onItemClicked = { teamId ->
                             viewModel.getTeamDetails(teamId)
                             navController.navigate(teamDetailsScreenKey)
-                        })
+                        },
+                        onSeeGamesTableButtonClicked = {
+                            viewModel.getGames()
+                            navController.navigate(gameTableScreenKey)
+                        }
+                    )
                 }
                 composable(teamDetailsScreenKey) {
                     TeamDetails(teamDetails)
